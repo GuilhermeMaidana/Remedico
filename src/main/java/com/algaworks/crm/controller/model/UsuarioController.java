@@ -5,6 +5,8 @@ import com.algaworks.crm.model.Medicamento;
 import com.algaworks.crm.model.Usuario;
 import com.algaworks.crm.repository.MedicamentoRepository;
 import com.algaworks.crm.repository.UsuarioRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -42,10 +45,31 @@ public class UsuarioController {
 		return usuarioRepository.findMedicamentosByUsuarioId(id_usuario);
 	}
 	
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario adicionar(@RequestBody Usuario usuario) {
-		return usuarioRepository.save(usuario);
+	    List<Medicamento> medicamentos = usuario.getMedicamentos();
+	    if (medicamentos != null) {
+	        for (Medicamento medicamento : medicamentos) {
+	        	medicamento.setUsuarios(new ArrayList<>());
+	            medicamento.getUsuarios().add(usuario);
+	        }
+	    }
+	    return usuarioRepository.save(usuario);
+	}
+	
+	@PutMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public Usuario editar(@RequestBody Usuario usuario) {
+	    List<Medicamento> medicamentos = usuario.getMedicamentos();
+	    if (medicamentos != null) {
+	        for (Medicamento medicamento : medicamentos) {
+	        	medicamento.setUsuarios(new ArrayList<>());
+	            medicamento.getUsuarios().add(usuario);
+	        }
+	    }
+	    return usuarioRepository.save(usuario);
 	}
 
 }

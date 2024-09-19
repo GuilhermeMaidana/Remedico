@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import com.algaworks.crm.model.Medicamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
@@ -39,13 +43,13 @@ public class Medicamento {
 
     @Column(nullable = false)
     private Date datafinal_medicamento;
-
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
         name = "Usuario_Medicamento",
         joinColumns = @JoinColumn(name = "id_medicamento"),
         inverseJoinColumns = @JoinColumn(name = "id_usuario")
     )
+    @JsonIgnore
     private List<Usuario> usuarios;
 
     // Getters y Setters
