@@ -2,8 +2,10 @@ package com.algaworks.crm.controller.model;
 
 
 import com.algaworks.crm.model.Medicamento;
+import com.algaworks.crm.model.Notificacao;
 import com.algaworks.crm.model.Usuario;
 import com.algaworks.crm.repository.MedicamentoRepository;
+import com.algaworks.crm.repository.NotificacaoRepository;
 import com.algaworks.crm.repository.UsuarioRepository;
 
 import java.util.ArrayList;
@@ -29,7 +31,8 @@ public class UsuarioController {
 	
 	@Autowired
 	private MedicamentoRepository medicamentoRepository;
-	
+	@Autowired
+	private NotificacaoRepository notificacaoRepository;
 	@GetMapping
 	public List<Usuario> listar() {
 		return usuarioRepository.findAll();
@@ -45,15 +48,28 @@ public class UsuarioController {
 		return usuarioRepository.findMedicamentosByUsuarioId(id_usuario);
 	}
 	
+	@GetMapping("/notificacao/{id_usuario}")
+	public List<Notificacao> buscarnotificacao(@PathVariable Long id_usuario) {
+		return usuarioRepository.findNotificacaoByUsuarioId(id_usuario);
+	}
 	
-	@PostMapping
+	
+	
+	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario adicionar(@RequestBody Usuario usuario) {
+	public Usuario adicionar1(@RequestBody Usuario usuario) {
+	    List<Notificacao> notificacaos = usuario.getNotificacaos();
 	    List<Medicamento> medicamentos = usuario.getMedicamentos();
 	    if (medicamentos != null) {
 	        for (Medicamento medicamento : medicamentos) {
 	        	medicamento.setUsuarios(new ArrayList<>());
 	            medicamento.getUsuarios().add(usuario);
+	        }
+	    }
+	    if (notificacaos != null) {
+	        for (Notificacao notificacao: notificacaos) {
+	        	notificacao.setUsuarios(new ArrayList<>());
+	        	notificacao.getUsuarios().add(usuario);
 	        }
 	    }
 	    return usuarioRepository.save(usuario);

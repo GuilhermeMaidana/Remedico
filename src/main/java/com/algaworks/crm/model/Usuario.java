@@ -43,6 +43,9 @@ public class Usuario {
 
     @ManyToMany(mappedBy = "usuarios", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private List<Medicamento> medicamentos;
+    
+    @ManyToMany(mappedBy = "usuarios", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private List<Notificacao> notificacaos;
 
     // Getters y Setters
     public long getId_usuario() {
@@ -115,6 +118,13 @@ public class Usuario {
 
     public void setMedicamentos(List<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
+    }
+    public List<Notificacao> getNotificacaos() {
+        return notificacaos;
+    }
+
+    public void setNotificacaos(List<Notificacao> notificacaos) {
+        this.notificacaos = notificacaos;
     }
 
     @Override
