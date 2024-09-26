@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.algaworks.crm.model.Medicamento;
 import com.algaworks.crm.model.Notificacao;
+import com.algaworks.crm.model.SuporteAoUsuario;
 import com.algaworks.crm.model.Usuario;
 
 
@@ -23,5 +24,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query("SELECT u.notificacaos FROM Usuario u WHERE u.id_usuario = :idUsuario")
     List<Notificacao> findNotificacaoByUsuarioId(@Param("idUsuario") Long idUsuario);
 	
+	@Query("SELECT u.suporteAoUsuario FROM Usuario u WHERE u.id_usuario = :idUsuario")
+	List<SuporteAoUsuario> findSuporteAoUsuarioByUsuarioId(@Param("idUsuario") Long idUsuario);
 	
 }

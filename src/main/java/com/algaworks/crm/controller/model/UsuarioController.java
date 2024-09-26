@@ -3,6 +3,7 @@ package com.algaworks.crm.controller.model;
 
 import com.algaworks.crm.model.Medicamento;
 import com.algaworks.crm.model.Notificacao;
+import com.algaworks.crm.model.SuporteAoUsuario;
 import com.algaworks.crm.model.Usuario;
 import com.algaworks.crm.repository.MedicamentoRepository;
 import com.algaworks.crm.repository.NotificacaoRepository;
@@ -29,10 +30,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	private MedicamentoRepository medicamentoRepository;
-	@Autowired
-	private NotificacaoRepository notificacaoRepository;
+	
 	@GetMapping
 	public List<Usuario> listar() {
 		return usuarioRepository.findAll();
@@ -71,6 +69,17 @@ public class UsuarioController {
 	        	notificacao.setUsuarios(new ArrayList<>());
 	        	notificacao.getUsuarios().add(usuario);
 	        }
+	    }
+	    List<SuporteAoUsuario> suporteAoUsuario = usuario.getSuporteAoUsuarios();
+
+	    if (suporteAoUsuario != null) {
+
+	        for (SuporteAoUsuario suporteAoUsuarios : suporteAoUsuario) {
+
+	        	suporteAoUsuarios.setUsuario(usuario);
+
+	        }
+
 	    }
 	    return usuarioRepository.save(usuario);
 	}

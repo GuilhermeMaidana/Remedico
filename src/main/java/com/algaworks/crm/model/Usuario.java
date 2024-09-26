@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -46,6 +47,9 @@ public class Usuario {
     
     @ManyToMany(mappedBy = "usuarios", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private List<Notificacao> notificacaos;
+    
+    @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private List<SuporteAoUsuario> suporteAoUsuario;
 
     // Getters y Setters
     public long getId_usuario() {
@@ -125,6 +129,19 @@ public class Usuario {
 
     public void setNotificacaos(List<Notificacao> notificacaos) {
         this.notificacaos = notificacaos;
+    } 
+    public List<SuporteAoUsuario> getSuporteAoUsuarios() {
+
+        return suporteAoUsuario;
+
+    }
+
+
+
+    public void setSuporteAoUsuarios(List<SuporteAoUsuario> SuporteAoUsuarios) {
+
+        this.suporteAoUsuario = SuporteAoUsuarios;
+
     }
 
     @Override
