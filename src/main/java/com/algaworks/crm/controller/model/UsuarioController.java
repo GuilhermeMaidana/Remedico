@@ -1,10 +1,12 @@
 package com.algaworks.crm.controller.model;
 
 
+import com.algaworks.crm.model.Acessibilidade;
 import com.algaworks.crm.model.Medicamento;
 import com.algaworks.crm.model.Notificacao;
 import com.algaworks.crm.model.SuporteAoUsuario;
 import com.algaworks.crm.model.Usuario;
+import com.algaworks.crm.repository.AcessibilidadeRepository;
 import com.algaworks.crm.repository.MedicamentoRepository;
 import com.algaworks.crm.repository.NotificacaoRepository;
 import com.algaworks.crm.repository.UsuarioRepository;
@@ -29,6 +31,10 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private AcessibilidadeRepository acessibilidadeRepository;
+	
 	
 	
 	@GetMapping
@@ -58,6 +64,7 @@ public class UsuarioController {
 	public Usuario adicionar1(@RequestBody Usuario usuario) {
 	    List<Notificacao> notificacaos = usuario.getNotificacaos();
 	    List<Medicamento> medicamentos = usuario.getMedicamentos();
+	   
 	    if (medicamentos != null) {
 	        for (Medicamento medicamento : medicamentos) {
 	        	medicamento.setUsuarios(new ArrayList<>());
@@ -81,6 +88,17 @@ public class UsuarioController {
 	        }
 
 	    }
+	    List<Acessibilidade> acessibilidade = usuario.getAcessibilidades();
+	    if (acessibilidade  != null) {
+
+	        for (Acessibilidade Acessibilidades : acessibilidade) {
+
+	        	Acessibilidades.setUsuario(usuario);
+
+	        }
+
+	    }
+	    
 	    return usuarioRepository.save(usuario);
 	}
 	

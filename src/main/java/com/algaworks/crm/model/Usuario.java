@@ -51,6 +51,9 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private List<SuporteAoUsuario> suporteAoUsuario;
 
+    @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Acessibilidade> acessibilidades;
+
     // Getters y Setters
     public long getId_usuario() {
         return id_usuario;
@@ -141,6 +144,19 @@ public class Usuario {
     public void setSuporteAoUsuarios(List<SuporteAoUsuario> SuporteAoUsuarios) {
 
         this.suporteAoUsuario = SuporteAoUsuarios;
+
+    }
+    public List<Acessibilidade> getAcessibilidades() {
+
+        return acessibilidades;
+
+    }
+
+
+
+    public void setAcessibilidades(List<Acessibilidade> Acessibilidades) {
+
+        this.acessibilidades = Acessibilidades;
 
     }
 
