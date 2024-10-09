@@ -53,6 +53,9 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Acessibilidade> acessibilidades;
+    
+    @OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private List<ListaDeExames> listaDeExames;
 
     // Getters y Setters
     public long getId_usuario() {
@@ -157,8 +160,22 @@ public class Usuario {
     public void setAcessibilidades(List<Acessibilidade> Acessibilidades) {
 
         this.acessibilidades = Acessibilidades;
+        
 
     }
+    public List<ListaDeExames> getListaDeExames() {
+
+		return listaDeExames;
+
+	}
+
+
+
+	public void setListaDeExames(List<ListaDeExames> listaDeExames) {
+
+		this.listaDeExames = listaDeExames;
+
+	}
 
     @Override
     public int hashCode() {

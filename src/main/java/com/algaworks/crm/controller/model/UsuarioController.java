@@ -2,6 +2,7 @@ package com.algaworks.crm.controller.model;
 
 
 import com.algaworks.crm.model.Acessibilidade;
+import com.algaworks.crm.model.ListaDeExames;
 import com.algaworks.crm.model.Medicamento;
 import com.algaworks.crm.model.Notificacao;
 import com.algaworks.crm.model.SuporteAoUsuario;
@@ -32,8 +33,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	private AcessibilidadeRepository acessibilidadeRepository;
+	
 	
 	
 	
@@ -98,6 +98,28 @@ public class UsuarioController {
 	        }
 
 	    }
+	    List<ListaDeExames> exames = usuario.getListaDeExames();
+
+
+	    if (exames != null) {
+
+
+
+	        for (ListaDeExames exame : exames) {
+
+
+
+	        	exame.setUsuario(usuario);
+
+
+
+	        }
+
+
+
+	    }
+
+	    
 	    
 	    return usuarioRepository.save(usuario);
 	}
