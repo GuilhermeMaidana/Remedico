@@ -23,7 +23,7 @@ public class Usuario {
     @Column(nullable = false)
     private String nome_usuario;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email_usuario;
 
     @Column(nullable = false)
@@ -32,10 +32,10 @@ public class Usuario {
     @Column(nullable = false)
     private String endereco_usuario;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cpf_usuario;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String telefone_usuario;
 
     @Column(nullable = true)
